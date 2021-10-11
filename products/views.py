@@ -13,7 +13,8 @@ def index(request):
 
 def products(request):
     context = {
-        'title': 'CloneShop',
+        'title': 'CloneShop - Каталог',
+        'user': 'Илья',
         'products': [
             {'img_src': '/static/vendor/img/products/Adidas-hoodie.png',
              'name': 'Худи черного цвета с монограммами adidas Originals',
