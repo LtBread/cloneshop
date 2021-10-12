@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render
 
 
@@ -6,7 +8,8 @@ from django.shortcuts import render
 def index(request):
     context = {
         'title': 'CloneShop',
-        'user': 'Илья'
+        'user': 'илья',
+        'now': datetime.datetime.now(),
     }
     return render(request, 'products/index.html', context)
 
@@ -14,7 +17,7 @@ def index(request):
 def products(request):
     context = {
         'title': 'CloneShop - Каталог',
-        'user': 'Илья',
+        'user': 'илья',
         'products': [
             {'img_src': '/static/vendor/img/products/Adidas-hoodie.png',
              'name': 'Худи черного цвета с монограммами adidas Originals',
