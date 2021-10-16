@@ -23,6 +23,7 @@ def products(request):
     context = {
         'title': 'CloneShop - Каталог',
         'user': 'илья',
-        'products': json.load(open(file_path, encoding='utf-8'))
+        'products': json.load(open(file_path, encoding='utf-8')),
+        'categories': '',
     }
     return render(request, 'products/products.html', context)
