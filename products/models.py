@@ -11,7 +11,7 @@ class ProductCategory(models.Model):
         return self.name
 
 
-class Products(models.Model):
+class Product(models.Model):
     name = models.CharField(max_length=256)
     image = models.ImageField(upload_to='products_images', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
