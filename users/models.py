@@ -3,4 +3,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    image = models.ImageField(upload_to='users/images', blank=True, null=True)
+    image = models.ImageField(upload_to='users_images', blank=True, null=True)
+    birthday = models.DateField(blank=True, null=True)
+    delivery_address = models.TextField(blank=True, null=True)
