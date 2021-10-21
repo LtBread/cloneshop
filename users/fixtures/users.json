@@ -1,0 +1,44 @@
+[
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$NZQGCw2udpS7NbRNY1MojS$pLtT/wxGBfzsr1vlQo8ymDAq/XsAblTMp4UPQbklSq0=",
+      "last_login": "2021-10-20T13:30:43Z",
+      "is_superuser": false,
+      "username": "art",
+      "first_name": "Артём",
+      "last_name": "Михалченко",
+      "email": "art1992@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-10-20T13:30:31Z",
+      "image": "users_images/0_868c5_3682c3f5_L.jpg",
+      "birthday": "1998-11-14",
+      "delivery_address": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$64ukbT2ojzeIojd7x6yTVn$rHQJL8EGyt+IzNfZwtgBgiWxTDUdj54iRkDnrLFdN+Q=",
+      "last_login": "2021-10-20T13:31:57Z",
+      "is_superuser": false,
+      "username": "olgaolga",
+      "first_name": "Ольга",
+      "last_name": "Шаповалова",
+      "email": "shapovalova123@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-10-20T13:31:37Z",
+      "image": "",
+      "birthday": "2000-05-21",
+      "delivery_address": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

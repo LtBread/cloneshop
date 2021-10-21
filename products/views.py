@@ -12,7 +12,6 @@ from products.models import ProductCategory, Product
 def index(request):
     context = {
         'title': 'CloneShop',
-        'user': 'илья',
         'now': datetime.datetime.now(),
     }
     return render(request, 'products/index.html', context)
@@ -21,7 +20,6 @@ def index(request):
 def products(request):
     context = {
         'title': 'CloneShop - Каталог',
-        'user': 'илья',
         'products': Product.objects.all(),
         'categories': ProductCategory.objects.all(),
     }
