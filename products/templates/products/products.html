@@ -72,6 +72,7 @@
                                 </h4>
                                 <h5>{{ product.price }} руб.</h5>
                                 <p class="card-text">{{ product.description }}</p>
+                                <p class="card-text">Товаров доступно: {{ product.quantity }}</p>
                             </div>
                             <div class="card-footer text-center">
                                 <a class="btn btn-outline-success" href="{% url 'baskets:basket_add' product.id %}">
