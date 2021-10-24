@@ -50,19 +50,10 @@ def profile(request):
     else:
         form = UserProfileForm(instance=user)
 
-    total_quantity = 0
-    total_sum = 0
-    baskets = Basket.objects.filter(user=user)
-    for basket in baskets:
-        total_quantity += basket.quantity
-        total_sum += basket.sum()
-
     context = {
         'title': 'CloneShop - Профиль',
         'form': form,
-        'baskets': baskets,
-        'total_quantity': total_quantity,
-        'total_sum': total_sum
+        'baskets': Basket.objects.filter(user=user)
     }
     return render(request, 'users/profile.html', context)
 
