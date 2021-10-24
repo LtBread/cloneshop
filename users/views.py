@@ -1,8 +1,10 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import auth
+from django.contrib import messages
 
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from baskets.models import Basket
 
 
 def login(request):
@@ -15,8 +17,6 @@ def login(request):
             if user and user.is_active:
                 auth.login(request, user)
                 return HttpResponseRedirect(reverse('index'))
-        else:
-            print(form.errors)
     else:
         form = UserLoginForm()
 
@@ -29,13 +29,40 @@ def registration(request):
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Вы успешно зарегистрировались!')
             return HttpResponseRedirect(reverse('users:login'))
-        else:
-            print(form.errors)
     else:
         form = UserRegistrationForm()
     context = {'title': 'CloneShop - Регистрация', 'form': form}
     return render(request, 'users/registration.html', context)
+
+
+def profile(request):
+    user = request.user
+    if request.method == 'POST':
+        form = UserProfileForm(instance=user, files=request.FILES, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Данные успешно изменены!')
+            return HttpResponseRedirect(reverse('users:profile'))
+    else:
+        form = UserProfileForm(instance=user)
+
+    total_quantity = 0
+    total_sum = 0
+    baskets = Basket.objects.filter(user=user)
+    for basket in baskets:
+        total_quantity += basket.quantity
+        total_sum += basket.sum()
+
+    context = {
+        'title': 'CloneShop - Профиль',
+        'form': form,
+        'baskets': baskets,
+        'total_quantity': total_quantity,
+        'total_sum': total_sum
+    }
+    return render(request, 'users/profile.html', context)
 
 
 def logout(request):
