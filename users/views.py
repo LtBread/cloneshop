@@ -20,7 +20,6 @@ def login(request):
                 return HttpResponseRedirect(reverse('index'))
     else:
         form = UserLoginForm()
-
     context = {'title': 'CloneShop - Авторизация', 'form': form}
     return render(request, 'users/login.html', context)
 
@@ -49,7 +48,6 @@ def profile(request):
             return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserProfileForm(instance=user)
-
     context = {
         'title': 'CloneShop - Профиль',
         'form': form,
