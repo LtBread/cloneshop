@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -22,6 +23,10 @@ class UserCreateView(CreateView):
     success_url = reverse_lazy('admins:admin_users')
     template_name = 'admins/admin-users-create.html'
 
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserCreateView, self).dispatch(request, *args, **kwargs)
+
 
 # @user_passes_test(lambda u: u.is_staff)
 # def admin_users_create(request):
@@ -41,6 +46,10 @@ class UserCreateView(CreateView):
 class UserListView(ListView):
     model = User
     template_name = 'admins/admin-users-read.html'
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserListView, self).dispatch(request, *args, **kwargs)
 
 
 # @user_passes_test(lambda u: u.is_staff)s
@@ -64,6 +73,10 @@ class UserUpdateView(UpdateView):
         context = super(UserUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Админ-панель - Редактирование пользователя'
         return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserUpdateView, self).dispatch(request, *args, **kwargs)
 
 
 # @user_passes_test(lambda u: u.is_staff)
@@ -90,6 +103,10 @@ class UserDeleteView(DeleteView):
     model = User
     template_name = 'admins/admin-users-update-delete.html'
     success_url = reverse_lazy('admins:admin_users')
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserDeleteView, self).dispatch(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
