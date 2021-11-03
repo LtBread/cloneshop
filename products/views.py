@@ -12,10 +12,11 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 
-def products(request):
-    context = {
-        'title': 'CloneShop - Каталог',
-        'products': Product.objects.all(),
-        'categories': ProductCategory.objects.all(),
-    }
+def products(request, category_id=None):
+    context = {'title': 'CloneShop - Каталог', 'categories': ProductCategory.objects.all()}
+    if category_id:
+        products = Product.objects.filter(category_id=category_id)
+    else:
+        products = Product.objects.all()
+    context['products'] = products
     return render(request, 'products/products.html', context)
