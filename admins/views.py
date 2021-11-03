@@ -27,6 +27,11 @@ class UserCreateView(CreateView):
     def dispatch(self, request, *args, **kwargs):
         return super(UserCreateView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(UserCreateView, self).get_context_data(**kwargs)
+        context['title'] = 'Админ-панель - Создание пользователей'
+        return context
+
 
 # @user_passes_test(lambda u: u.is_staff)
 # def admin_users_create(request):
@@ -51,6 +56,11 @@ class UserListView(ListView):
     def dispatch(self, request, *args, **kwargs):
         return super(UserListView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(UserListView, self).get_context_data(**kwargs)
+        context['title'] = 'Админ-панель - Пользователи'
+        return context
+
 
 # @user_passes_test(lambda u: u.is_staff)s
 # def admin_users(request):
@@ -69,14 +79,14 @@ class UserUpdateView(UpdateView):
     success_url = reverse_lazy('admins:admin_users')
     template_name = 'admins/admin-users-update-delete.html'
 
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserUpdateView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(UserUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Админ-панель - Редактирование пользователя'
         return context
-
-    @method_decorator(user_passes_test(lambda u: u.is_staff))
-    def dispatch(self, request, *args, **kwargs):
-        return super(UserUpdateView, self).dispatch(request, *args, **kwargs)
 
 
 # @user_passes_test(lambda u: u.is_staff)
