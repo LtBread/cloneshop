@@ -60,6 +60,11 @@ class UserUpdateView(UpdateView):
     success_url = reverse_lazy('admins:admin_users')
     template_name = 'admins/admin-users-update-delete.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserUpdateView, self).get_context_data(**kwargs)
+        context['title'] = 'Админ-панель - Редактирование пользователя'
+        return context
+
 
 # @user_passes_test(lambda u: u.is_staff)
 # def admin_users_update(request, id):
