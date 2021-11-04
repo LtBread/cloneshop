@@ -10,16 +10,16 @@ from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
 
 
-class UserIndexView(TemplateView):
+class IndexTemplateView(TemplateView):
     model = User
     template_name = 'admins/index.html'
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
-        return super(UserIndexView, self).dispatch(request, *args, **kwargs)
+        return super(IndexTemplateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(UserIndexView, self).get_context_data(**kwargs)
+        context = super(IndexTemplateView, self).get_context_data(**kwargs)
         context['title'] = 'Админ-панель - Главная'
         return context
 
