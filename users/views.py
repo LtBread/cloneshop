@@ -1,11 +1,9 @@
 from django.core.mail import send_mail
 from django.shortcuts import render, HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
-from django.views.generic.edit import CreateView
 
 import settings
 from users.models import User
@@ -29,16 +27,6 @@ def login(request):
     return render(request, 'users/login.html', context)
 
 
-# class UserLoginView(LoginView):
-#     form_class = UserLoginForm
-#     template_name = 'users/login.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(UserLoginView, self).get_context_data(**kwargs)
-#         context['title'] = 'CloneShop - Авторизация'
-#         return context
-
-
 def registration(request):
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
@@ -55,18 +43,6 @@ def registration(request):
         form = UserRegistrationForm()
     context = {'title': 'CloneShop - Регистрация', 'form': form}
     return render(request, 'users/registration.html', context)
-
-
-# class UserRegistrationView(CreateView):
-#     model = User
-#     form_class = UserRegistrationForm
-#     success_url = reverse_lazy('users:login')
-#     template_name = 'users/registration.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(UserRegistrationView, self).get_context_data(**kwargs)
-#         context['title'] = 'CloneShop - Регистрация'
-#         return context
 
 
 @login_required
