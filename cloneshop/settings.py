@@ -119,3 +119,12 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/users/login/'
 
 LOGIN_REDIRECT_URL = 'index'
+
+DOMAIN_NAME = 'http://localhost:8000'
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '59e92d260bcca7'
+EMAIL_HOST_PASSWORD = 'f68e68110898c4'
+EMAIL_PORT = '2525'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
