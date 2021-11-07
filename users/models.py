@@ -8,6 +8,7 @@ from django.utils.timezone import now
 class User(AbstractUser):
     image = models.ImageField(upload_to='users_images', blank=True, null=True)
     birthday = models.DateField(blank=True, null=True)
+    age = models.PositiveIntegerField(verbose_name='возраст', default=18)
     delivery_address = models.TextField(blank=True, null=True)
 
     activation_key = models.CharField(max_length=128, blank=True)
