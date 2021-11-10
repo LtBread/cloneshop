@@ -1,3 +1,4 @@
+import django.contrib.auth.backends
 from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render, HttpResponseRedirect
@@ -84,7 +85,7 @@ def verify(request, email, activation_key):
         if user.activation_key == activation_key and not user.is_activation_key_expired():
             user.is_active = True
             user.save()
-            auth.login(request, user)
+            auth.login(request, user, backend='django.contrib.auth.backends.BaseBackend')
             return render(request, 'users/verification.html')
         else:
             print(f'ERROR ACTIVATION USER {user.username}')
