@@ -6,9 +6,10 @@ from django.urls import reverse
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 
-from users.models import User
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from users.models import User, UserProfile
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm, UserExtendedProfileForm
 from baskets.models import Basket
 
 
@@ -46,20 +47,25 @@ def registration(request):
     return render(request, 'users/registration.html', context)
 
 
+@transaction.atomic
 @login_required
 def profile(request):
     user = request.user
     if request.method == 'POST':
         form = UserProfileForm(instance=user, files=request.FILES, data=request.POST)
-        if form.is_valid():
+        form_extended = UserExtendedProfileForm(instance=user.userprofile, data=request.POST)
+        if form.is_valid() and form_extended.is_valid():
             form.save()
+            form_extended.save()
             messages.success(request, 'Данные успешно изменены!')
             return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserProfileForm(instance=user)
+        form_extended = UserExtendedProfileForm(instance=user.userprofile)
     context = {
         'title': 'CloneShop - Профиль',
         'form': form,
+        'form_extended': form_extended,
         'baskets': Basket.objects.filter(user=user)
     }
     return render(request, 'users/profile.html', context)

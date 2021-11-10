@@ -4,7 +4,7 @@ import random
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
-from users.models import User
+from users.models import User, UserProfile
 
 
 class UserLoginForm(AuthenticationForm):
@@ -59,3 +59,16 @@ class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'image')
+
+
+class UserExtendedProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ('tagline', 'about_me', 'gender')
+
+    def __init__(self, *args, **kwargs):
+        super(UserExtendedProfileForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.help_text = ''
