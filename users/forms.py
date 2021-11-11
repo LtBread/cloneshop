@@ -65,7 +65,7 @@ class UserExtendedProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('tagline', 'about_me', 'gender')
+        fields = ('age', 'tagline', 'about_me', 'gender')
 
     def __init__(self, *args, **kwargs):
         super(UserExtendedProfileForm, self).__init__(*args, **kwargs)
