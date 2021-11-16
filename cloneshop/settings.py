@@ -41,13 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
 
     'products',
     'users',
     'baskets',
     'admins',
-
-    'social_django'
+    'orders',
 ]
 
 AUTHENTICATION_BACKENDS = [

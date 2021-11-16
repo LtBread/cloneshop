@@ -13,6 +13,10 @@ class Basket(models.Model):
     def __str__(self):
         return f'Козина для {self.user.username} | Продукт {self.product.name}'
 
+    @staticmethod
+    def get_item(pk):
+        return Basket.objects.get(pk=pk).first()
+
     @property
     def baskets(self):
         return Basket.objects.filter(user=self.user)
