@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.dispatch import receiver
@@ -10,6 +10,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 from baskets.models import Basket
 from orders.models import Order, OrderItem
 from orders.forms import OrderItemForm
+from products.models import Product
 
 
 class OrderListView(ListView):
@@ -59,7 +60,7 @@ class OrderCreateView(CreateView):
                 orderitems.save()
 
         if self.object.get_total_cost == 0:
-                self.object.delete()
+            self.object.delete()
 
         return super(OrderCreateView, self).form_valid(form)
 
@@ -142,3 +143,12 @@ def product_quantity_update_save(sender, update_fields, instance, **kwargs):
 def product_quantity_update_delete(sender, instance, **kwargs):
     instance.product.quantity += instance.quantity
     instance.product.save()
+
+
+def get_product_price(request, pk):
+    if request.is_ajax():
+        product = Product.objects.filter(pk=int(pk)).first()
+        if product:
+            return JsonResponse({'price': product.price})
+        else:
+            return JsonResponse({'price': 0})
