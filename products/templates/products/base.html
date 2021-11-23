@@ -66,9 +66,6 @@
     </div>
 </nav>
 
-<!-- JS -->
-{% block js %} {% endblock %}
-
 <!-- Page Content -->
 {% block content %} {% endblock %}
 <!-- /.container -->
@@ -83,8 +80,10 @@
 
 <!-- FontAwesome script -->
 <script src="{% static 'vendor/fontawesome/fontawesome-icons.js' %}" crossorigin="anonymous"></script>
-
 <script src="{% static 'js/basket.js' %}"></script>
+
+<!-- JS -->
+{% block js %} {% endblock %}
 
 </body>
 
