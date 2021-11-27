@@ -35,7 +35,11 @@
                 <h4 class="float-right">{{ baskets.0.total_sum }}</h4>
             </div>
         </div>
-        <button type="button" class="btn btn-success btn-lg float-right">Оформить</button>
+        <div class="card-footer text-right">
+            <a class="btn btn-outline-success" href="{% url 'orders:order_list' %}">
+                Оформить
+            </a>
+        </div>
     {% else %}
         <h4 class="mt-3 align-items-center mb-3">Корзина пуста</h4>
     {% endif %}
